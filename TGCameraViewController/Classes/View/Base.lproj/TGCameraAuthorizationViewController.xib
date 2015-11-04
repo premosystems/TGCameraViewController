@@ -141,22 +141,60 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hqS-87-a13" userLabel="FlashButton" customClass="TGFlashButton">
+                    <rect key="frame" x="20" y="20" width="15" height="30"/>
+                    <animations/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="hqS-87-a13" secondAttribute="height" multiplier="1:2" id="sH1-T5-fb9"/>
+                    </constraints>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <state key="normal">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="foregroundColor">
+                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Nh-I9-mbP" customClass="TGCameraFlipButton">
+                    <rect key="frame" x="550" y="20" width="30" height="30"/>
+                    <animations/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="0Nh-I9-mbP" secondAttribute="height" multiplier="1:1" id="L8I-7Z-o3C"/>
+                    </constraints>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <state key="normal">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="foregroundColor">
+                            <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </button>
             </subviews>
             <animations/>
             <color key="backgroundColor" red="0.1176470588" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
             <color key="tintColor" red="1" green="0.35686275360000003" blue="0.0039215688589999999" alpha="1" colorSpace="deviceRGB"/>
             <constraints>
                 <constraint firstItem="ANu-to-yvW" firstAttribute="width" secondItem="oB5-Ns-67k" secondAttribute="width" multiplier="0.4" id="7P7-q8-N0w"/>
+                <constraint firstItem="0Nh-I9-mbP" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" symbolic="YES" id="Co4-Ar-LWq"/>
+                <constraint firstAttribute="trailing" secondItem="0Nh-I9-mbP" secondAttribute="trailing" constant="20" symbolic="YES" id="Edo-ps-srd"/>
+                <constraint firstItem="hqS-87-a13" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" symbolic="YES" id="HBn-ap-2it"/>
                 <constraint firstItem="YPg-yH-53n" firstAttribute="width" secondItem="oB5-Ns-67k" secondAttribute="width" multiplier="0.5" id="LWe-sf-GQc"/>
+                <constraint firstItem="hqS-87-a13" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" symbolic="YES" id="N9G-88-Q4I"/>
                 <constraint firstItem="YPg-yH-53n" firstAttribute="centerY" secondItem="oB5-Ns-67k" secondAttribute="centerY" id="Rl5-SK-ZIw"/>
                 <constraint firstAttribute="centerX" secondItem="jH3-dv-6EG" secondAttribute="centerX" id="SGk-11-3Me"/>
                 <constraint firstItem="ANu-to-yvW" firstAttribute="centerY" secondItem="oB5-Ns-67k" secondAttribute="centerY" id="Xte-Rq-0dQ"/>
                 <constraint firstAttribute="centerY" secondItem="jH3-dv-6EG" secondAttribute="centerY" id="fmC-E4-yqn"/>
                 <constraint firstItem="ANu-to-yvW" firstAttribute="leading" secondItem="oB5-Ns-67k" secondAttribute="trailing" multiplier="1.14" id="gXW-rF-R8p"/>
+                <constraint firstItem="hqS-87-a13" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.05" id="j3U-aT-7zZ"/>
                 <constraint firstAttribute="bottom" secondItem="oB5-Ns-67k" secondAttribute="bottom" multiplier="1.1" id="jH7-el-E7C"/>
                 <constraint firstItem="oB5-Ns-67k" firstAttribute="leading" secondItem="YPg-yH-53n" secondAttribute="trailing" multiplier="1.2" constant="8" symbolic="YES" id="lNT-GV-SCw"/>
                 <constraint firstItem="oB5-Ns-67k" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="yCh-nW-sgf"/>
                 <constraint firstItem="oB5-Ns-67k" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.2" id="yjb-Yx-Fvd"/>
+                <constraint firstItem="0Nh-I9-mbP" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.05" id="ylM-8T-Jdk"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <point key="canvasLocation" x="182" y="136"/>

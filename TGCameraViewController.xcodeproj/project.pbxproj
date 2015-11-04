@@ -10,6 +10,8 @@
 		AA8F15951BE9B1CA0041F5FE /* TGCaptureButton.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8F15941BE9B1CA0041F5FE /* TGCaptureButton.m */; };
 		AA8F15981BE9B61A0041F5FE /* TGCancelButton.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8F15971BE9B61A0041F5FE /* TGCancelButton.m */; };
 		AA8F159B1BE9B8DE0041F5FE /* TGPhotoLibraryButton.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8F159A1BE9B8DE0041F5FE /* TGPhotoLibraryButton.m */; };
+		AA8F159E1BE9C1BE0041F5FE /* TGFlashButton.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8F159D1BE9C1BE0041F5FE /* TGFlashButton.m */; };
+		AA8F15A11BE9CA8A0041F5FE /* TGCameraFlipButton.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8F15A01BE9CA8A0041F5FE /* TGCameraFlipButton.m */; };
 		F82F8EDC19C4F29000A47148 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F82F8EC819C4F29000A47148 /* AppDelegate.m */; };
 		F82F8EE219C4F29000A47148 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F82F8ED719C4F29000A47148 /* Images.xcassets */; };
 		F82F8EE419C4F29000A47148 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F82F8EDB19C4F29000A47148 /* main.m */; };
@@ -52,6 +54,10 @@
 		AA8F15971BE9B61A0041F5FE /* TGCancelButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TGCancelButton.m; sourceTree = "<group>"; };
 		AA8F15991BE9B8DE0041F5FE /* TGPhotoLibraryButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TGPhotoLibraryButton.h; sourceTree = "<group>"; };
 		AA8F159A1BE9B8DE0041F5FE /* TGPhotoLibraryButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TGPhotoLibraryButton.m; sourceTree = "<group>"; };
+		AA8F159C1BE9C1BE0041F5FE /* TGFlashButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TGFlashButton.h; sourceTree = "<group>"; };
+		AA8F159D1BE9C1BE0041F5FE /* TGFlashButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TGFlashButton.m; sourceTree = "<group>"; };
+		AA8F159F1BE9CA8A0041F5FE /* TGCameraFlipButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TGCameraFlipButton.h; sourceTree = "<group>"; };
+		AA8F15A01BE9CA8A0041F5FE /* TGCameraFlipButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TGCameraFlipButton.m; sourceTree = "<group>"; };
 		F82F8E8119C4EFE700A47148 /* TGCameraViewController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TGCameraViewController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F82F8EC719C4F29000A47148 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F82F8EC819C4F29000A47148 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -297,6 +303,10 @@
 				AA8F15971BE9B61A0041F5FE /* TGCancelButton.m */,
 				AA8F15991BE9B8DE0041F5FE /* TGPhotoLibraryButton.h */,
 				AA8F159A1BE9B8DE0041F5FE /* TGPhotoLibraryButton.m */,
+				AA8F159C1BE9C1BE0041F5FE /* TGFlashButton.h */,
+				AA8F159D1BE9C1BE0041F5FE /* TGFlashButton.m */,
+				AA8F159F1BE9CA8A0041F5FE /* TGCameraFlipButton.h */,
+				AA8F15A01BE9CA8A0041F5FE /* TGCameraFlipButton.m */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -396,6 +406,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA8F15A11BE9CA8A0041F5FE /* TGCameraFlipButton.m in Sources */,
 				F89FACCD1B1A3D3A0079B391 /* TGCameraGrid.m in Sources */,
 				AA8F159B1BE9B8DE0041F5FE /* TGPhotoLibraryButton.m in Sources */,
 				F89FACC21B1A3D3A0079B391 /* UIImage+CameraFilters.m in Sources */,
@@ -409,6 +420,7 @@
 				F89FACC71B1A3D3A0079B391 /* TGAlbum.m in Sources */,
 				F89FACD01B1A3D3A0079B391 /* TGAssetImageFile.m in Sources */,
 				F89FACCB1B1A3D3A0079B391 /* TGCameraFlash.m in Sources */,
+				AA8F159E1BE9C1BE0041F5FE /* TGFlashButton.m in Sources */,
 				F89FACCF1B1A3D3A0079B391 /* TGCameraToggle.m in Sources */,
 				F89FACD31B1A3D3A0079B391 /* TGCameraGridView.m in Sources */,
 				F89FACD11B1A3D3A0079B391 /* TGCameraFilterView.m in Sources */,
