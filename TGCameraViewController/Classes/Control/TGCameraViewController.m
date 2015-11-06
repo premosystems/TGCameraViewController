@@ -27,26 +27,22 @@
 #import "TGPhotoViewController.h"
 #import "TGCameraSlideView.h"
 #import "TGTintedButton.h"
+#import "TGPhotoLibraryButton.h"
 
 
 @interface TGCameraViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView *captureView;
-@property (strong, nonatomic) IBOutlet UIImageView *topLeftView;
-@property (strong, nonatomic) IBOutlet UIImageView *topRightView;
-@property (strong, nonatomic) IBOutlet UIImageView *bottomLeftView;
-@property (strong, nonatomic) IBOutlet UIImageView *bottomRightView;
-@property (strong, nonatomic) IBOutlet UIView *separatorView;
+@property (weak, nonatomic) IBOutlet UIView *overlayView;
+@property (weak, nonatomic) IBOutlet UIImageView *overlayRing;
+
 @property (strong, nonatomic) IBOutlet UIView *actionsView;
 @property (strong, nonatomic) IBOutlet UIButton *gridButton;
 @property (strong, nonatomic) IBOutlet UIButton *toggleButton;
 @property (strong, nonatomic) IBOutlet UIButton *shotButton;
-@property (strong, nonatomic) IBOutlet TGTintedButton *albumButton;
+@property (strong, nonatomic) IBOutlet TGPhotoLibraryButton *albumButton;
 @property (strong, nonatomic) IBOutlet UIButton *flashButton;
-@property (strong, nonatomic) IBOutlet TGCameraSlideView *slideUpView;
-@property (strong, nonatomic) IBOutlet TGCameraSlideView *slideDownView;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toggleButtonWidth;
 
 @property (strong, nonatomic) TGCamera *camera;
@@ -61,7 +57,6 @@
 - (IBAction)handleTapGesture:(UITapGestureRecognizer *)recognizer;
 
 - (void)deviceOrientationDidChangeNotification;
-- (void)latestPhoto;
 - (AVCaptureVideoOrientation)videoOrientationForDeviceOrientation:(UIDeviceOrientation)deviceOrientation;
 - (void)viewWillDisappearWithCompletion:(void (^)(void))completion;
 
@@ -75,10 +70,6 @@
 {
     [super viewDidLoad];
     
-    if (CGRectGetHeight([[UIScreen mainScreen] bounds]) <= 480) {
-        _topViewHeight.constant = 0;
-    }
-    
     if ([[TGCamera getOption:kTGCameraOptionHiddenToggleButton] boolValue] == YES) {
         _toggleButton.hidden = YES;
         _toggleButtonWidth.constant = 0;
@@ -88,18 +79,9 @@
         _albumButton.hidden = YES;
     }
     
-    [_albumButton.layer setCornerRadius:10.f];
-    [_albumButton.layer setMasksToBounds:YES];
-    
-    
     _camera = [TGCamera cameraWithFlashButton:_flashButton];
     
     _captureView.backgroundColor = [UIColor clearColor];
-    
-    _topLeftView.transform = CGAffineTransformMakeRotation(0);
-    _topRightView.transform = CGAffineTransformMakeRotation(M_PI_2);
-    _bottomLeftView.transform = CGAffineTransformMakeRotation(-M_PI_2);
-    _bottomRightView.transform = CGAffineTransformMakeRotation(M_PI_2*2);
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -111,20 +93,13 @@
                                                  name:UIDeviceOrientationDidChangeNotification
                                                object:nil];
     
-    _separatorView.hidden = NO;
-    
-    _actionsView.hidden = YES;
-    
-    _topLeftView.hidden =
-    _topRightView.hidden =
-    _bottomLeftView.hidden =
-    _bottomRightView.hidden = YES;
+    _actionsView.hidden = NO;
     
     _gridButton.enabled =
     _toggleButton.enabled =
     _shotButton.enabled =
     _albumButton.enabled =
-    _flashButton.enabled = NO;
+    _flashButton.enabled = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -135,23 +110,6 @@
     
     [_camera startRunning];
     
-    _separatorView.hidden = YES;
-    
-    [TGCameraSlideView hideSlideUpView:_slideUpView slideDownView:_slideDownView atView:_captureView completion:^{
-        _topLeftView.hidden =
-        _topRightView.hidden =
-        _bottomLeftView.hidden =
-        _bottomRightView.hidden = NO;
-        
-        _actionsView.hidden = NO;
-        
-        _gridButton.enabled =
-        _toggleButton.enabled =
-        _shotButton.enabled =
-        _albumButton.enabled =
-        _flashButton.enabled = YES;
-    }];
-    
     if (_wasLoaded == NO) {
         _wasLoaded = YES;
         [_camera insertSublayerWithCaptureView:_captureView atRootView:self.view];
@@ -161,8 +119,25 @@
     ALAuthorizationStatus status = [ALAssetsLibrary authorizationStatus];
     if (status != ALAuthorizationStatusDenied) {
         // access to album is authorised
-        [self latestPhoto];
+        
     }
+    
+    [UIView animateWithDuration:0.0f animations:^{
+        
+        int radius = self.overlayRing.frame.size.width;
+        UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, self.overlayView.bounds.size.width, self.overlayView.bounds.size.height) cornerRadius:0];
+        UIBezierPath *circlePath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(self.overlayRing.frame.origin.x, self.overlayRing.frame.origin.y, radius, radius) cornerRadius:radius];
+        [path appendPath:circlePath];
+        [path setUsesEvenOddFillRule:YES];
+        
+        CAShapeLayer *fillLayer = [CAShapeLayer layer];
+        fillLayer.path = path.CGPath;
+        fillLayer.fillRule = kCAFillRuleEvenOdd;
+        fillLayer.fillColor = [UIColor blackColor].CGColor;
+        fillLayer.opacity = 0.5;
+        [self.overlayView.layer addSublayer:fillLayer];
+        
+    }];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -187,19 +162,12 @@
 - (void)dealloc
 {
     _captureView = nil;
-    _topLeftView = nil;
-    _topRightView = nil;
-    _bottomLeftView = nil;
-    _bottomRightView = nil;
-    _separatorView = nil;
     _actionsView = nil;
     _gridButton = nil;
     _toggleButton = nil;
     _shotButton = nil;
     _albumButton = nil;
     _flashButton = nil;
-    _slideUpView = nil;
-    _slideDownView = nil;
     _camera = nil;
 }
 
@@ -282,7 +250,7 @@
 }
 
 #pragma mark -
-#pragma mark - Private methods
+#pragma mark - Private methodshttp://stackoverflow.com/questions/28365819/ios-custom-uiimagepickercontroller-camera-crop-to-circle-in-preview-view
 
 - (void)deviceOrientationDidChangeNotification
 {
@@ -321,16 +289,6 @@
     }];
 }
 
--(void)latestPhoto
-{
-    TGAssetsLibrary *library = [TGAssetsLibrary defaultAssetsLibrary];
-    
-    __weak __typeof(self)wSelf = self;
-    [library latestPhotoWithCompletion:^(UIImage *photo) {
-        wSelf.albumButton.disableTint = YES;
-        [wSelf.albumButton setImage:photo forState:UIControlStateNormal];
-    }];
-}
 
 - (AVCaptureVideoOrientation)videoOrientationForDeviceOrientation:(UIDeviceOrientation)deviceOrientation
 {
@@ -356,9 +314,7 @@
 {
     _actionsView.hidden = YES;
     
-    [TGCameraSlideView showSlideUpView:_slideUpView slideDownView:_slideDownView atView:_captureView completion:^{
-        completion();
-    }];
+    completion();
 }
 
 @end

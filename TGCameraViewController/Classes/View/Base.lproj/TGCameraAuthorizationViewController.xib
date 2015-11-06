@@ -94,7 +94,7 @@
                         <constraint firstItem="5IV-OX-z7n" firstAttribute="top" secondItem="52v-Pz-Qrc" secondAttribute="bottom" constant="26" id="tmG-fV-SiH"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YPg-yH-53n" userLabel="CancelButton" customClass="TGCancelButton">
+                <button opaque="NO" alpha="0.40000000000000002" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YPg-yH-53n" userLabel="CancelButton" customClass="TGCancelButton">
                     <rect key="frame" x="133" y="455" width="60" height="60"/>
                     <animations/>
                     <constraints>
@@ -113,7 +113,7 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oB5-Ns-67k" userLabel="CaptureButton" customClass="TGCaptureButton">
+                <button opaque="NO" alpha="0.5" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oB5-Ns-67k" userLabel="CaptureButton" customClass="TGCaptureButton">
                     <rect key="frame" x="240" y="425" width="120" height="120"/>
                     <animations/>
                     <constraints>
@@ -129,7 +129,7 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ANu-to-yvW" userLabel="PhotoLibraryButton" customClass="TGPhotoLibraryButton">
+                <button opaque="NO" alpha="0.5" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ANu-to-yvW" userLabel="PhotoLibraryButton" customClass="TGPhotoLibraryButton">
                     <rect key="frame" x="410.5" y="461" width="48" height="48"/>
                     <animations/>
                     <constraints>
@@ -141,7 +141,7 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hqS-87-a13" userLabel="FlashButton" customClass="TGFlashButton">
+                <button opaque="NO" alpha="0.5" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hqS-87-a13" userLabel="FlashButton" customClass="TGFlashButton">
                     <rect key="frame" x="20" y="20" width="15" height="30"/>
                     <animations/>
                     <constraints>
@@ -157,7 +157,7 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Nh-I9-mbP" customClass="TGCameraFlipButton">
+                <button opaque="NO" alpha="0.5" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Nh-I9-mbP" customClass="TGCameraFlipButton">
                     <rect key="frame" x="550" y="20" width="30" height="30"/>
                     <animations/>
                     <constraints>

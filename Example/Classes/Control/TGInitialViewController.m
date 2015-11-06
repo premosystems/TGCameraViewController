@@ -34,7 +34,7 @@
     
     // hidden toggle button
     //[TGCamera setOption:kTGCameraOptionHiddenToggleButton value:[NSNumber numberWithBool:YES]];
-    //[TGCameraColor setTintColor: [UIColor greenColor]];
+    [TGCameraColor setTintColor: [UIColor whiteColor]];
     
     // hidden album button
     //[TGCamera setOption:kTGCameraOptionHiddenAlbumButton value:[NSNumber numberWithBool:YES]];
