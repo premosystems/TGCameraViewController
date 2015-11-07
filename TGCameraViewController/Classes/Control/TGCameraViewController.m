@@ -23,6 +23,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+#import "RSKImageCropper.h"
 #import "TGCameraViewController.h"
 #import "TGPhotoViewController.h"
 #import "TGCameraSlideView.h"
@@ -134,7 +135,7 @@
         fillLayer.path = path.CGPath;
         fillLayer.fillRule = kCAFillRuleEvenOdd;
         fillLayer.fillColor = [UIColor blackColor].CGColor;
-        fillLayer.opacity = 0.5;
+        fillLayer.opacity = 0.45;
         [self.overlayView.layer addSublayer:fillLayer];
         
     }];
@@ -221,8 +222,18 @@
     [self viewWillDisappearWithCompletion:^{
         [_camera takePhotoWithCaptureView:_captureView videoOrientation:videoOrientation cropSize:_captureView.frame.size
                                completion:^(UIImage *photo) {
-                                   TGPhotoViewController *viewController = [TGPhotoViewController newWithDelegate:_delegate photo:photo];
-                                   [self.navigationController pushViewController:viewController animated:YES];
+                                   
+                                   
+                                   //TGPhotoViewController *viewController = [TGPhotoViewController newWithDelegate:_delegate photo:photo];
+                                   //[self.navigationController pushViewController:viewController animated:YES];
+                                   
+                                   //RSKImageCropViewController *imageCropVC = [[RSKImageCropViewController alloc] initWithImage:photo cropMode:RSKImageCropModeCircle];
+                                   //imageCropVC.delegate = self;
+                                   RSKImageCropViewController *imageCropVC = [[RSKImageCropViewController alloc] initWithNibName:@"RSKImageCropViewController" bundle:[NSBundle mainBundle]];
+                                   imageCropVC.originalImage = photo;
+                                   [self.navigationController pushViewController:imageCropVC animated:YES];
+                                   
+                                   
                                }];
     }];
 }

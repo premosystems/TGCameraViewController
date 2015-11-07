@@ -70,7 +70,7 @@
                     </state>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                            <color key="value" red="0.94901960780000005" green="0.0" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="value" red="0.98039215686274506" green="0.25098039215686274" blue="0.32549019607843138" alpha="1" colorSpace="calibratedRGB"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="foregroundColor">
                             <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
