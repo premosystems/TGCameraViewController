@@ -31,7 +31,7 @@
 #import "TGPhotoLibraryButton.h"
 
 
-@interface TGCameraViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface TGCameraViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, RSKImageCropViewControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView *captureView;
 @property (weak, nonatomic) IBOutlet UIView *overlayView;
@@ -227,10 +227,9 @@
                                    //TGPhotoViewController *viewController = [TGPhotoViewController newWithDelegate:_delegate photo:photo];
                                    //[self.navigationController pushViewController:viewController animated:YES];
                                    
-                                   //RSKImageCropViewController *imageCropVC = [[RSKImageCropViewController alloc] initWithImage:photo cropMode:RSKImageCropModeCircle];
-                                   //imageCropVC.delegate = self;
-                                   RSKImageCropViewController *imageCropVC = [[RSKImageCropViewController alloc] initWithNibName:@"RSKImageCropViewController" bundle:[NSBundle mainBundle]];
-                                   imageCropVC.originalImage = photo;
+                                   RSKImageCropViewController *imageCropVC = [[RSKImageCropViewController alloc] initWithImage:photo cropMode:RSKImageCropModeCircle];
+                                   imageCropVC.delegate = self;
+                                   
                                    [self.navigationController pushViewController:imageCropVC animated:YES];
                                    
                                    
@@ -326,6 +325,67 @@
     _actionsView.hidden = YES;
     
     completion();
+}
+
+
+#pragma mark - RSKImageCropViewControllerDelegate Methods
+
+/**
+ Tells the delegate that crop image has been canceled.
+ */
+- (void)imageCropViewControllerDidCancelCrop:(RSKImageCropViewController *)controller
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+/**
+ Tells the delegate that the original image will be cropped.
+ */
+- (void)imageCropViewController:(RSKImageCropViewController *)controller willCropImage:(UIImage *)originalImage
+{
+    
+}
+
+/**
+ Tells the delegate that the original image has been cropped. Additionally provides a crop rect used to produce image.
+ */
+- (void)imageCropViewController:(RSKImageCropViewController *)controller didCropImage:(UIImage *)croppedImage usingCropRect:(CGRect)cropRect
+{
+    if ( [_delegate respondsToSelector:@selector(cameraWillTakePhoto)]) {
+        [_delegate cameraWillTakePhoto];
+    }
+    
+    if ([_delegate respondsToSelector:@selector(cameraDidTakePhoto:)]) {
+        
+        [_delegate cameraDidTakePhoto:croppedImage];
+        
+        ALAuthorizationStatus status = [ALAssetsLibrary authorizationStatus];
+        TGAssetsLibrary *library = [TGAssetsLibrary defaultAssetsLibrary];
+        
+        void (^saveJPGImageAtDocumentDirectory)(UIImage *) = ^(UIImage *photo) {
+            [library saveJPGImageAtDocumentDirectory:croppedImage resultBlock:^(NSURL *assetURL) {
+                [_delegate cameraDidSavePhotoAtPath:assetURL];
+            } failureBlock:^(NSError *error) {
+                if ([_delegate respondsToSelector:@selector(cameraDidSavePhotoWithError:)]) {
+                    [_delegate cameraDidSavePhotoWithError:error];
+                }
+            }];
+        };
+        
+        if ([[TGCamera getOption:kTGCameraOptionSaveImageToAlbum] boolValue] && status != ALAuthorizationStatusDenied) {
+            [library saveImage:croppedImage resultBlock:^(NSURL *assetURL) {
+                if ([_delegate respondsToSelector:@selector(cameraDidSavePhotoAtPath:)]) {
+                    [_delegate cameraDidSavePhotoAtPath:assetURL];
+                }
+            } failureBlock:^(NSError *error) {
+                saveJPGImageAtDocumentDirectory(croppedImage);
+            }];
+        } else {
+            if ([_delegate respondsToSelector:@selector(cameraDidSavePhotoAtPath:)]) {
+                saveJPGImageAtDocumentDirectory(croppedImage);
+            }
+        }
+    }
 }
 
 @end

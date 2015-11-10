@@ -20,7 +20,6 @@
 		AABADD861BEDB76E0001F252 /* RSKTouchView.m in Sources */ = {isa = PBXBuildFile; fileRef = AABADD7C1BEDB76E0001F252 /* RSKTouchView.m */; };
 		AABADD871BEDB76E0001F252 /* UIApplication+RSKImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = AABADD7E1BEDB76E0001F252 /* UIApplication+RSKImageCropper.m */; };
 		AABADD881BEDB76E0001F252 /* UIImage+RSKImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = AABADD801BEDB76E0001F252 /* UIImage+RSKImageCropper.m */; };
-		AABADD8A1BEDBBD20001F252 /* RSKImageCropViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AABADD891BEDBBD20001F252 /* RSKImageCropViewController.xib */; };
 		F82F8EDC19C4F29000A47148 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F82F8EC819C4F29000A47148 /* AppDelegate.m */; };
 		F82F8EE219C4F29000A47148 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F82F8ED719C4F29000A47148 /* Images.xcassets */; };
 		F82F8EE419C4F29000A47148 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F82F8EDB19C4F29000A47148 /* main.m */; };
@@ -84,7 +83,6 @@
 		AABADD7E1BEDB76E0001F252 /* UIApplication+RSKImageCropper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+RSKImageCropper.m"; sourceTree = "<group>"; };
 		AABADD7F1BEDB76E0001F252 /* UIImage+RSKImageCropper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RSKImageCropper.h"; sourceTree = "<group>"; };
 		AABADD801BEDB76E0001F252 /* UIImage+RSKImageCropper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RSKImageCropper.m"; sourceTree = "<group>"; };
-		AABADD891BEDBBD20001F252 /* RSKImageCropViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RSKImageCropViewController.xib; sourceTree = "<group>"; };
 		F82F8E8119C4EFE700A47148 /* TGCameraViewController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TGCameraViewController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F82F8EC719C4F29000A47148 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F82F8EC819C4F29000A47148 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -177,7 +175,6 @@
 				AABADD741BEDB76E0001F252 /* RSKImageCropViewController+Protected.h */,
 				AABADD751BEDB76E0001F252 /* RSKImageCropViewController.h */,
 				AABADD761BEDB76E0001F252 /* RSKImageCropViewController.m */,
-				AABADD891BEDBBD20001F252 /* RSKImageCropViewController.xib */,
 				AABADD771BEDB76E0001F252 /* RSKImageScrollView.h */,
 				AABADD781BEDB76E0001F252 /* RSKImageScrollView.m */,
 				AABADD791BEDB76E0001F252 /* RSKInternalUtility.h */,
@@ -452,7 +449,6 @@
 				F89FACE11B1A3D9E0079B391 /* TGCameraViewController.xib in Resources */,
 				F89FACE21B1A3D9E0079B391 /* TGPhotoViewController.xib in Resources */,
 				F89FACDF1B1A3D920079B391 /* Main.storyboard in Resources */,
-				AABADD8A1BEDBBD20001F252 /* RSKImageCropViewController.xib in Resources */,
 				F82F8EE219C4F29000A47148 /* Images.xcassets in Resources */,
 				AABADD821BEDB76E0001F252 /* RSKImageCropperStrings.bundle in Resources */,
 				F861D62919C653D90077B642 /* TGCameraViewController.xcassets in Resources */,

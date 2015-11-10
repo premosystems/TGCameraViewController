@@ -30,15 +30,13 @@
 #import "CGGeometry+RSKImageCropper.h"
 #import "UIApplication+RSKImageCropper.h"
 
-static const CGFloat kPortraitCircleMaskRectInnerEdgeInset = 15.0f;
+static const CGFloat kPortraitCircleMaskRectInnerEdgeInset = 26.0f;
 static const CGFloat kPortraitSquareMaskRectInnerEdgeInset = 20.0f;
-static const CGFloat kPortraitMoveAndScaleLabelVerticalMargin = 64.0f;
-static const CGFloat kPortraitCancelAndChooseButtonsHorizontalMargin = 13.0f;
+static const CGFloat kPortraitCancelAndChooseButtonsHorizontalMargin = 38.0f;
 static const CGFloat kPortraitCancelAndChooseButtonsVerticalMargin = 21.0f;
 
 static const CGFloat kLandscapeCircleMaskRectInnerEdgeInset = 45.0f;
 static const CGFloat kLandscapeSquareMaskRectInnerEdgeInset = 45.0f;
-static const CGFloat kLandscapeMoveAndScaleLabelVerticalMargin = 12.0f;
 static const CGFloat kLandscapeCancelAndChooseButtonsVerticalMargin = 12.0f;
 
 static const CGFloat kResetAnimationDuration = 0.4;
@@ -58,8 +56,8 @@ static const CGFloat kLayoutImageScrollViewAnimationDuration = 0.25;
 @property (strong, nonatomic) UIColor *originalNavigationControllerViewBackgroundColor;
 @property (assign, nonatomic) BOOL originalStatusBarHidden;
 
-@property (weak, nonatomic) IBOutlet RSKImageScrollView *imageScrollView;
-@property (weak, nonatomic) IBOutlet RSKTouchView *overlayView;
+@property (strong, nonatomic) RSKImageScrollView *imageScrollView;
+@property (strong, nonatomic) RSKTouchView *overlayView;
 @property (strong, nonatomic) CAShapeLayer *maskLayer;
 @property (assign, nonatomic) CGRect maskRect;
 @property (strong, nonatomic) UIBezierPath *maskPath;
@@ -80,18 +78,6 @@ static const CGFloat kLayoutImageScrollViewAnimationDuration = 0.25;
 @implementation RSKImageCropViewController
 
 #pragma mark - Lifecycle
-
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
-    self = [super initWithCoder:coder];
-    if (self) {
-        _avoidEmptySpaceAroundImage = NO;
-        _applyMaskToCroppedImage = NO;
-        _rotationEnabled = NO;
-        _cropMode = RSKImageCropModeCircle;
-    }
-    return self;
-}
 
 - (instancetype)init
 {
@@ -128,36 +114,20 @@ static const CGFloat kLayoutImageScrollViewAnimationDuration = 0.25;
     return YES;
 }
 
-- (void)awakeFromNib
-{
-    [super awakeFromNib];
-    
-    _avoidEmptySpaceAroundImage = NO;
-    _applyMaskToCroppedImage = NO;
-    _rotationEnabled = NO;
-    _cropMode = RSKImageCropModeCircle;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    _avoidEmptySpaceAroundImage = NO;
-    _applyMaskToCroppedImage = NO;
-    _rotationEnabled = NO;
-    _cropMode = RSKImageCropModeCircle;
     
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
     
-    //self.view.backgroundColor = [UIColor blackColor];
-   // self.view.clipsToBounds = YES;
+    self.view.backgroundColor = [UIColor blackColor];
+    self.view.clipsToBounds = YES;
     
-    //[self.view addSubview:self.imageScrollView];
-    //[self.view addSubview:self.overlayView];
-    [self.view addSubview:self.moveAndScaleLabel];
+    [self.view addSubview:self.imageScrollView];
+    [self.view addSubview:self.overlayView];
     [self.view addSubview:self.cancelButton];
     [self.view addSubview:self.chooseButton];
     
@@ -229,61 +199,97 @@ static const CGFloat kLayoutImageScrollViewAnimationDuration = 0.25;
     [super updateViewConstraints];
     
     if (!self.didSetupConstraints) {
-        // ---------------------------
-        // The label "Move and Scale".
-        // ---------------------------
-        
-        NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:self.moveAndScaleLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual
-                                                                         toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0f
-                                                                       constant:0.0f];
-        [self.view addConstraint:constraint];
-        
-        CGFloat constant = kPortraitMoveAndScaleLabelVerticalMargin;
-        self.moveAndScaleLabelTopConstraint = [NSLayoutConstraint constraintWithItem:self.moveAndScaleLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual
-                                                                              toItem:self.view attribute:NSLayoutAttributeTop multiplier:1.0f
-                                                                            constant:constant];
-        [self.view addConstraint:self.moveAndScaleLabelTopConstraint];
         
         // --------------------
         // The button "Cancel".
         // --------------------
         
-        constant = kPortraitCancelAndChooseButtonsHorizontalMargin;
-        constraint = [NSLayoutConstraint constraintWithItem:self.cancelButton attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual
-                                                     toItem:self.view attribute:NSLayoutAttributeLeft multiplier:1.0f
-                                                   constant:constant];
+        CGFloat constant = kPortraitCancelAndChooseButtonsHorizontalMargin;
+        NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:self.cancelButton
+                                                                      attribute:NSLayoutAttributeLeading
+                                                                      relatedBy:NSLayoutRelationEqual
+                                                                         toItem:self.view
+                                                                      attribute:NSLayoutAttributeLeading
+                                                                     multiplier:1.0f
+                                                                       constant:self.view.frame.size.width * 0.18f];
+        [self.view addConstraint:constraint];
+        
+        constraint = [NSLayoutConstraint constraintWithItem:self.cancelButton
+                                                  attribute:NSLayoutAttributeHeight
+                                                  relatedBy:NSLayoutRelationEqual
+                                                     toItem:self.cancelButton
+                                                  attribute:NSLayoutAttributeWidth
+                                                 multiplier:1
+                                                   constant:1];
+        [self.cancelButton addConstraint:constraint];
+        
+        constraint = [NSLayoutConstraint constraintWithItem:self.cancelButton
+                                                  attribute:NSLayoutAttributeWidth
+                                                  relatedBy:NSLayoutRelationEqual
+                                                     toItem:self.view
+                                                  attribute:NSLayoutAttributeWidth
+                                                 multiplier:0.22f
+                                                   constant:0];
         [self.view addConstraint:constraint];
         
         constant = -kPortraitCancelAndChooseButtonsVerticalMargin;
-        self.cancelButtonBottomConstraint = [NSLayoutConstraint constraintWithItem:self.cancelButton attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual
-                                                                            toItem:self.view attribute:NSLayoutAttributeBottom multiplier:1.0f
-                                                                          constant:constant];
-        [self.view addConstraint:self.cancelButtonBottomConstraint];
+        constraint = [NSLayoutConstraint constraintWithItem:self.cancelButton
+                                                  attribute:NSLayoutAttributeBottom
+                                                  relatedBy:NSLayoutRelationEqual
+                                                     toItem:self.view
+                                                  attribute:NSLayoutAttributeBottom
+                                                 multiplier:1.0f
+                                                   constant:-self.view.frame.size.height * 0.18f];
+        [self.view addConstraint:constraint];
         
         // --------------------
         // The button "Choose".
         // --------------------
         
+        constraint = [NSLayoutConstraint constraintWithItem:self.chooseButton
+                                                  attribute:NSLayoutAttributeHeight
+                                                  relatedBy:NSLayoutRelationEqual
+                                                     toItem:self.chooseButton
+                                                  attribute:NSLayoutAttributeWidth
+                                                 multiplier:1
+                                                   constant:1];
+        [self.chooseButton addConstraint:constraint];
+        
+        constraint = [NSLayoutConstraint constraintWithItem:self.chooseButton
+                                                  attribute:NSLayoutAttributeHeight
+                                                  relatedBy:NSLayoutRelationEqual
+                                                     toItem:self.cancelButton
+                                                  attribute:NSLayoutAttributeHeight
+                                                 multiplier:1.0f
+                                                   constant:0];
+        [self.view addConstraint:constraint];
+        
         constant = -kPortraitCancelAndChooseButtonsHorizontalMargin;
-        constraint = [NSLayoutConstraint constraintWithItem:self.chooseButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual
-                                                     toItem:self.view attribute:NSLayoutAttributeRight multiplier:1.0f
-                                                   constant:constant];
+        constraint = [NSLayoutConstraint constraintWithItem:self.chooseButton
+                                                  attribute:NSLayoutAttributeTrailing
+                                                  relatedBy:NSLayoutRelationEqual
+                                                     toItem:self.view
+                                                  attribute:NSLayoutAttributeTrailing
+                                                 multiplier:1.0f
+                                                   constant:-self.view.frame.size.width * 0.18f];
         [self.view addConstraint:constraint];
         
         constant = -kPortraitCancelAndChooseButtonsVerticalMargin;
-        self.chooseButtonBottomConstraint = [NSLayoutConstraint constraintWithItem:self.chooseButton attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual
-                                                                            toItem:self.view attribute:NSLayoutAttributeBottom multiplier:1.0f
-                                                                          constant:constant];
-        [self.view addConstraint:self.chooseButtonBottomConstraint];
+        constraint = [NSLayoutConstraint constraintWithItem:self.chooseButton
+                                                  attribute:NSLayoutAttributeBottom
+                                                  relatedBy:NSLayoutRelationEqual
+                                                     toItem:self.view
+                                                  attribute:NSLayoutAttributeBottom
+                                                 multiplier:1.0f
+                                                   constant:-self.view.frame.size.height * 0.18f];
+        [self.view addConstraint:constraint];
         
         self.didSetupConstraints = YES;
     } else {
         if ([self isPortraitInterfaceOrientation]) {
-            self.moveAndScaleLabelTopConstraint.constant = kPortraitMoveAndScaleLabelVerticalMargin;
             self.cancelButtonBottomConstraint.constant = -kPortraitCancelAndChooseButtonsVerticalMargin;
             self.chooseButtonBottomConstraint.constant = -kPortraitCancelAndChooseButtonsVerticalMargin;
         } else {
-            self.moveAndScaleLabelTopConstraint.constant = kLandscapeMoveAndScaleLabelVerticalMargin;
             self.cancelButtonBottomConstraint.constant = -kLandscapeCancelAndChooseButtonsVerticalMargin;
             self.chooseButtonBottomConstraint.constant = -kLandscapeCancelAndChooseButtonsVerticalMargin;
         }
@@ -348,7 +354,8 @@ static const CGFloat kLayoutImageScrollViewAnimationDuration = 0.25;
     if (!_cancelButton) {
         _cancelButton = [[UIButton alloc] init];
         _cancelButton.translatesAutoresizingMaskIntoConstraints = NO;
-        [_cancelButton setTitle:RSKLocalizedString(@"Cancel", @"Cancel button") forState:UIControlStateNormal];
+        [_cancelButton setTitle:RSKLocalizedString(@"Retake", @"Retake button") forState:UIControlStateNormal];
+        [_cancelButton setBackgroundImage:[UIImage imageNamed:@"circle_red_no_border"] forState:UIControlStateNormal];
         [_cancelButton addTarget:self action:@selector(onCancelButtonTouch:) forControlEvents:UIControlEventTouchUpInside];
         _cancelButton.opaque = NO;
     }
@@ -361,6 +368,8 @@ static const CGFloat kLayoutImageScrollViewAnimationDuration = 0.25;
         _chooseButton = [[UIButton alloc] init];
         _chooseButton.translatesAutoresizingMaskIntoConstraints = NO;
         [_chooseButton setTitle:RSKLocalizedString(@"Choose", @"Choose button") forState:UIControlStateNormal];
+        [_chooseButton setBackgroundImage:[UIImage imageNamed:@"circle_white_noborder"] forState:UIControlStateNormal];
+        [_chooseButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [_chooseButton addTarget:self action:@selector(onChooseButtonTouch:) forControlEvents:UIControlEventTouchUpInside];
         _chooseButton.opaque = NO;
     }
@@ -788,7 +797,24 @@ static const CGFloat kLayoutImageScrollViewAnimationDuration = 0.25;
 {
     switch (self.cropMode) {
         case RSKImageCropModeCircle: {
-            self.maskPath = [UIBezierPath bezierPathWithOvalInRect:self.maskRect];
+            CGFloat viewWidth = CGRectGetWidth(self.view.bounds);
+            CGFloat viewHeight = CGRectGetHeight(self.view.bounds);
+            
+            CGFloat diameter;
+            if ([self isPortraitInterfaceOrientation]) {
+                diameter = MIN(viewWidth, viewHeight) - kPortraitCircleMaskRectInnerEdgeInset * 2;
+            } else {
+                diameter = MIN(viewWidth, viewHeight) - kLandscapeCircleMaskRectInnerEdgeInset * 2;
+            }
+            
+            CGSize maskSize = CGSizeMake(diameter, diameter);
+            
+            CGRect pathRect = CGRectMake((viewWidth - maskSize.width) * 0.5f,
+                                       (viewHeight - maskSize.height) * 0.25f,
+                                       maskSize.width,
+                                       maskSize.height);
+            //self.maskPath = [UIBezierPath bezierPathWithOvalInRect:self.maskRect];
+            self.maskPath = [UIBezierPath bezierPathWithOvalInRect:pathRect];
             break;
         }
         case RSKImageCropModeSquare: {
