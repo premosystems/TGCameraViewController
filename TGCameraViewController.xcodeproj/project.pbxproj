@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA0BC61C1BF31C4300D00979 /* UIImage+Trim.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0BC61B1BF31C4300D00979 /* UIImage+Trim.m */; };
 		AA8F15951BE9B1CA0041F5FE /* TGCaptureButton.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8F15941BE9B1CA0041F5FE /* TGCaptureButton.m */; };
 		AA8F15981BE9B61A0041F5FE /* TGCancelButton.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8F15971BE9B61A0041F5FE /* TGCancelButton.m */; };
 		AA8F159B1BE9B8DE0041F5FE /* TGPhotoLibraryButton.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8F159A1BE9B8DE0041F5FE /* TGPhotoLibraryButton.m */; };
@@ -56,6 +57,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AA0BC61A1BF31C4300D00979 /* UIImage+Trim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Trim.h"; sourceTree = "<group>"; };
+		AA0BC61B1BF31C4300D00979 /* UIImage+Trim.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Trim.m"; sourceTree = "<group>"; };
 		AA8F15931BE9B1CA0041F5FE /* TGCaptureButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TGCaptureButton.h; sourceTree = "<group>"; };
 		AA8F15941BE9B1CA0041F5FE /* TGCaptureButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TGCaptureButton.m; sourceTree = "<group>"; };
 		AA8F15961BE9B61A0041F5FE /* TGCancelButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TGCancelButton.h; sourceTree = "<group>"; };
@@ -160,6 +163,8 @@
 		AABADD6E1BEDB76E0001F252 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				AA0BC61A1BF31C4300D00979 /* UIImage+Trim.h */,
+				AA0BC61B1BF31C4300D00979 /* UIImage+Trim.m */,
 				AABADD6F1BEDB76E0001F252 /* RSKImageCropper */,
 			);
 			path = External;
@@ -465,6 +470,7 @@
 			files = (
 				AA8F15A11BE9CA8A0041F5FE /* TGCameraFlipButton.m in Sources */,
 				F89FACCD1B1A3D3A0079B391 /* TGCameraGrid.m in Sources */,
+				AA0BC61C1BF31C4300D00979 /* UIImage+Trim.m in Sources */,
 				AA8F159B1BE9B8DE0041F5FE /* TGPhotoLibraryButton.m in Sources */,
 				AABADD871BEDB76E0001F252 /* UIApplication+RSKImageCropper.m in Sources */,
 				F89FACC21B1A3D3A0079B391 /* UIImage+CameraFilters.m in Sources */,

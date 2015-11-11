@@ -29,6 +29,7 @@
 #import "UIImage+RSKImageCropper.h"
 #import "CGGeometry+RSKImageCropper.h"
 #import "UIApplication+RSKImageCropper.h"
+#import "UIImage+Trim.h"
 
 static const CGFloat kPortraitCircleMaskRectInnerEdgeInset = 26.0f;
 static const CGFloat kPortraitSquareMaskRectInnerEdgeInset = 20.0f;
@@ -834,7 +835,14 @@ static const CGFloat kLayoutImageScrollViewAnimationDuration = 0.25;
 
 - (UIImage *)croppedImage:(UIImage *)image cropMode:(RSKImageCropMode)cropMode cropRect:(CGRect)cropRect rotationAngle:(CGFloat)rotationAngle zoomScale:(CGFloat)zoomScale maskPath:(UIBezierPath *)maskPath applyMaskToCroppedImage:(BOOL)applyMaskToCroppedImage
 {
-    // Step 1: check and correct the crop rect.
+    UIGraphicsBeginImageContextWithOptions(image.size, NO, image.scale);
+    [[UIBezierPath bezierPathWithRect:self.maskPath.bounds] addClip];
+    [image drawAtPoint:CGPointZero];
+    UIImage *maskedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return [maskedImage imageByTrimmingTransparentPixelsRequiringFullOpacity:YES];
+    
+    /*// Step 1: check and correct the crop rect.
     CGSize imageSize = image.size;
     CGFloat x = CGRectGetMinX(cropRect);
     CGFloat y = CGRectGetMinY(cropRect);
@@ -919,7 +927,7 @@ static const CGFloat kLayoutImageScrollViewAnimationDuration = 0.25;
         
         // Step 11: return the cropped image affter processing.
         return croppedImage;
-    }
+    }*/
 }
 
 - (void)cropImage
