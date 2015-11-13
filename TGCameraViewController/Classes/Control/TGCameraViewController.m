@@ -29,6 +29,8 @@
 #import "TGCameraSlideView.h"
 #import "TGTintedButton.h"
 #import "TGPhotoLibraryButton.h"
+#import "TGPushAnimator.h"
+#import "TGPopAnimator.h"
 
 
 @interface TGCameraViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, RSKImageCropViewControllerDelegate>
@@ -83,6 +85,8 @@
     _camera = [TGCamera cameraWithFlashButton:_flashButton];
     
     _captureView.backgroundColor = [UIColor clearColor];
+    
+    self.navigationController.delegate = self;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -325,6 +329,21 @@
     _actionsView.hidden = YES;
     
     completion();
+}
+
+
+- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
+                                  animationControllerForOperation:(UINavigationControllerOperation)operation
+                                               fromViewController:(UIViewController*)fromVC
+                                                 toViewController:(UIViewController*)toVC
+{
+    if (operation == UINavigationControllerOperationPush)
+        return [[TGPushAnimator alloc] init];
+    
+    if (operation == UINavigationControllerOperationPop)
+        return [[TGPopAnimator alloc] init];
+    
+    return nil;
 }
 
 

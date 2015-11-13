@@ -34,7 +34,7 @@
                             <animations/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="overlay_ring" translatesAutoresizingMaskIntoConstraints="NO" id="mc8-Vm-GMO">
+                        <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="overlay_ring" translatesAutoresizingMaskIntoConstraints="NO" id="mc8-Vm-GMO">
                             <rect key="frame" x="30" y="37" width="540" height="540"/>
                             <animations/>
                             <constraints>

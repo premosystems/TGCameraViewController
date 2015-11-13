@@ -65,6 +65,7 @@ static const CGFloat kLayoutImageScrollViewAnimationDuration = 0.25;
 @property (strong, nonatomic) UILabel *moveAndScaleLabel;
 @property (strong, nonatomic) UIButton *cancelButton;
 @property (strong, nonatomic) UIButton *chooseButton;
+@property (strong, nonatomic) UIImageView *overlayCircleView;
 
 @property (strong, nonatomic) UITapGestureRecognizer *doubleTapGestureRecognizer;
 @property (strong, nonatomic) UIRotationGestureRecognizer *rotationGestureRecognizer;
@@ -131,6 +132,12 @@ static const CGFloat kLayoutImageScrollViewAnimationDuration = 0.25;
     [self.view addSubview:self.overlayView];
     [self.view addSubview:self.cancelButton];
     [self.view addSubview:self.chooseButton];
+    
+    self.overlayCircleView = [[UIImageView alloc] init];
+    self.overlayCircleView.image = [UIImage imageNamed:@"overlay_ring"];
+    self.overlayCircleView.alpha = 0.60f;
+    self.overlayCircleView.contentMode = UIViewContentModeScaleToFill;
+    [self.view addSubview:self.overlayCircleView];
     
     [self.view addGestureRecognizer:self.doubleTapGestureRecognizer];
     [self.view addGestureRecognizer:self.rotationGestureRecognizer];
@@ -200,6 +207,12 @@ static const CGFloat kLayoutImageScrollViewAnimationDuration = 0.25;
     [super updateViewConstraints];
     
     if (!self.didSetupConstraints) {
+        
+        // --------------------
+        // The Overlay "Circle".
+        //
+        self.overlayCircleView.frame = CGRectMake(self.maskPath.bounds.origin.x, self.maskPath.bounds.origin.y, self.maskPath.bounds.size.width, self.maskPath.bounds.size.height);
+        
         
         // --------------------
         // The button "Cancel".
@@ -810,10 +823,10 @@ static const CGFloat kLayoutImageScrollViewAnimationDuration = 0.25;
             
             CGSize maskSize = CGSizeMake(diameter, diameter);
             
-            CGRect pathRect = CGRectMake((viewWidth - maskSize.width) * 0.5f,
-                                       (viewHeight - maskSize.height) * 0.25f,
-                                       maskSize.width,
-                                       maskSize.height);
+            CGRect pathRect = CGRectMake((viewWidth - maskSize.width) * 0.5f - 6,
+                                       (viewHeight - maskSize.height) * 0.25f - 6,
+                                       maskSize.width + 12,
+                                       maskSize.height + 12);
             //self.maskPath = [UIBezierPath bezierPathWithOvalInRect:self.maskRect];
             self.maskPath = [UIBezierPath bezierPathWithOvalInRect:pathRect];
             break;
